@@ -2,21 +2,30 @@
 
 [![Build Status](https://travis-ci.org/wazsmwazsm/DB.svg?branch=master)](https://travis-ci.org/wazsmwazsm/DB)
 
-一个简单好用的查询构造器，基于 PDO，支持 mysql、postgresql、sqlite，支持常驻内存模式的短线重连。
+一个简单好用的查询构造器，基于 PDO，支持 mysql、postgresql、sqlite，支持常驻内存模式的断线重连。
 
 ## 安装
 ```bash
 composer require wazsmwazsm/db
 ```
+## 依赖
 
-# 开始
+php pdo 扩展
+php pdo_mysql 扩展（可选）
+php pdo_pgsql 扩展（可选）
+php pdo_sqlite 扩展（可选）
+
+# 如何开始
 ## 初始化配置
+
+查询构造器支持多个数据库连接，初始化后每个连接以单例的形式存在。
+
 ```php
 use DB/DB;
 
 // 配置信息
 $db_conf = [
-	// 配置 mysql 
+	// mysql 配置样例
     'con1' => [ 
         'driver'      => 'mysql',
         'host'        => 'localhost',
@@ -33,7 +42,7 @@ $db_conf = [
         // 'options'     => [],
     ],
     
-	// 配置 postgresql 
+	// postgresql 配置样例
     'con2' => [
         'driver'           => 'pgsql',
         'host'             => 'localhost',
@@ -49,12 +58,16 @@ $db_conf = [
         // 'sslmode'          => 'disable',
         // 'options'          => [],
     ],
-	// 配置 sqlite 
+	// sqlite 配置样例
     'con3' => [ 
         'driver'  => 'sqlite',
         'dbname'  => 'database.db',
         'prefix'  => '',
         // 'options' => [],
+    ],
+    // 其他连接
+    'con3' => [ 
+        // ...
     ]
 ];
 
