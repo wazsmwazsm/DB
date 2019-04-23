@@ -582,4 +582,6 @@ DB::connection('con1')
 DB::connection('con1')->commitTrans();
 ```
 
+## License
 
+The DB is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
