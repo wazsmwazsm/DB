@@ -167,25 +167,25 @@ where 、orWhere 方法的参数支持三种模式：
 ```php
 // SELECT * FROM test WHERE name = 'mike' AND age = 18;
 $data = DB::connection('con1')
-		->table('test')
-        ->where([
-        	'name' => 'mike', 
-            'age' => 18
-        ])
-        ->get();
+    ->table('test')
+    ->where([
+        'name' => 'mike', 
+        'age' => 18
+    ])
+    ->get();
 
 // SELECT * FROM test WHERE name = 'jack' AND age >= 18;
 $data = DB::connection('con1')
-		->table('test')
-        ->where('name', 'jack')
-        ->where('age', '>=',  18)
-        ->get();
+    ->table('test')
+    ->where('name', 'jack')
+    ->where('age', '>=',  18)
+    ->get();
 // SELECT * FROM test WHERE name = 'jack' OR name = 'mike';
 $data = DB::connection('con1')
-		->table('test')
-        ->where('name', 'jack')
-        ->orWhere('name', 'mike')
-        ->get();
+    ->table('test')
+    ->where('name', 'jack')
+    ->orWhere('name', 'mike')
+    ->get();
 ```
 
 对于 null 的条件查询，查询构造器提供了 whereNull、whereNotNull 等方法：
@@ -193,9 +193,9 @@ $data = DB::connection('con1')
 ```php
 // SELECT * FROM test WHERE name IS NOT null;
 $data = DB::connection('con1')
-		->table('test')
-        ->whereNotNull('name')
-        ->get();
+    ->table('test')
+    ->whereNotNull('name')
+    ->get();
 ```
 
 > 注：where is null 子句的构造提供 whereNull、orWhereNull、whereNotNull、orWhereNotNull 四个方法。
@@ -206,9 +206,9 @@ where between 子句：
 ```php
 // SELECT * FROM test WHERE age BETWEEN 18 AND 30;
 $data = DB::connection('con1')
-		->table('test')
-        ->whereBetween('age', 18, 30)
-        ->get();
+    ->table('test')
+    ->whereBetween('age', 18, 30)
+    ->get();
 ```
 
 > 注：where between 子句的构造提供 whereBetween、orWhereBetween 个方法。
@@ -217,9 +217,9 @@ where in 子句：
 ```php
 // SELECT * FROM test WHERE age IN (18, 19, 20);
 $data = DB::connection('con1')
-		->table('test')
-        ->whereIn('age', [18, 19, 20])
-        ->get();
+    ->table('test')
+    ->whereIn('age', [18, 19, 20])
+    ->get();
 ```
 
 > 注：where in 子句的构造提供 whereIn、orWhereIn、whereNotIn、orWhereNotIn 四个方法。
@@ -230,12 +230,12 @@ where exists 子句：
 ```php
 // SELECT * FROM user WHERE EXISTS ( SELECT * FROM user_group WHERE id = 3 ) AND g_id = 3;
 $data = DB::connection('con1')
-		->table('user')
-        ->whereExists(function($query) {
-            $query->table('user_group')->where('id', 3);
-        })
-        ->where('g_id', 3)
-        ->get();
+    ->table('user')
+    ->whereExists(function($query) {
+        $query->table('user_group')->where('id', 3);
+    })
+    ->where('g_id', 3)
+    ->get();
 ```
 
 > 注：where exists 子句的构造提供 whereExists、orWhereExists、whereNotExists、orWhereNotExists 四个方法。
@@ -244,11 +244,11 @@ where in 子查询：
 ```php
 // SELECT * FROM user WHERE g_id IN (SELECT id FROM user _group);
 $data = DB::connection('con1')
-		->table('user')
-        ->whereInSub('g_id', function($query) {
-            $query->table('user_group')->select('id');
-        })
-        ->get();
+    ->table('user')
+    ->whereInSub('g_id', function($query) {
+        $query->table('user_group')->select('id');
+    })
+    ->get();
 ```
 
 > 注：where in 子查询的构造提供 whereInSub、orWhereInSub、whereNotInSub、orWhereNotInSub 四个方法。
@@ -258,23 +258,23 @@ $data = DB::connection('con1')
 ```php
 // SELECT * FROM user WHERE (id < 50 OR username IS NOT NULL) AND sort_num = 20;
 $data = DB::connection('con1')
-        ->table('user')
-        ->whereBrackets(function($query) {
-            $query->where('id', '<', 50)
-                  ->orWhereNotNull('username');
-        })
-        ->where('sort_num', 20)
-        ->get();
+    ->table('user')
+    ->whereBrackets(function($query) {
+        $query->where('id', '<', 50)
+                ->orWhereNotNull('username');
+    })
+    ->where('sort_num', 20)
+    ->get();
         
 // SELECT * FROM user WHERE sort_num = 20 OR (id < 10 AND id > 5);
 $data = DB::connection('con1')
-        ->table('user')
-        ->where('sort_num', 20)
-        ->orWhereBrackets(function($query) {
-            $query->where('id', '<', 10)
-                  ->where('id', '>', 5);
-        })
-        ->get();
+    ->table('user')
+    ->where('sort_num', 20)
+    ->orWhereBrackets(function($query) {
+        $query->where('id', '<', 10)
+                ->where('id', '>', 5);
+    })
+    ->get();
 ```
 
 ## 子查询
@@ -283,11 +283,11 @@ $data = DB::connection('con1')
 ```php
 // SELECT id, username, email FROM ( SELECT * FROM user WHERE id < 20 ) AS tb;
 $data = DB::connection('con1')
-		->select('id', 'username', 'email')
-        ->fromSub(function($query) {
-            $query->table('user')->where('id', '<', '20');
-        })
-        ->get();
+    ->select('id', 'username', 'email')
+    ->fromSub(function($query) {
+        $query->table('user')->where('id', '<', '20');
+    })
+    ->get();
 ```
 
 
@@ -300,29 +300,29 @@ having 方法和 where 方法一样支持三种参数模式，这里就不再赘
 ```php
 // SELECT sort_num, COUNT(sort_num) FROM user GROUP BY sort_num;
 $data = DB::connection('con1')
-		->table('user')
-        ->select('sort_num', 'COUNT(sort_num)')
-        ->groupBy('sort_num')
-        ->get();
+    ->table('user')
+    ->select('sort_num', 'COUNT(sort_num)')
+    ->groupBy('sort_num')
+    ->get();
         
 // SELECT sort_num, COUNT(sort_num) FROM user GROUP BY sort_num HAVING COUNT(sort_num) < 20;
 $data = DB::connection('con1')
-        ->table('user')
-        ->select('sort_num', 'COUNT(sort_num)')
-        ->groupBy('sort_num')
-        ->having('COUNT(sort_num)', '<', 20)
-        ->get();
+    ->table('user')
+    ->select('sort_num', 'COUNT(sort_num)')
+    ->groupBy('sort_num')
+    ->having('COUNT(sort_num)', '<', 20)
+    ->get();
 ```
 
 查询构造器还提供了一个输入原生字符串的 havingRaw 方法，可以处理一些复杂的情况：
 ```php
 // SELECT sort_num, COUNT(sort_num) FROM user GROUP BY sort_num HAVING COUNT(sort_num) < 20;
 $data = DB::connection('con1')
-		->table('user')
-        ->select('sort_num', 'COUNT(sort_num)')
-        ->groupBy('sort_num')
-        ->havingRaw('COUNT(sort_num) < 20')
-        ->get();
+    ->table('user')
+    ->select('sort_num', 'COUNT(sort_num)')
+    ->groupBy('sort_num')
+    ->havingRaw('COUNT(sort_num) < 20')
+    ->get();
 ```
 
 ## 排序
@@ -331,10 +331,10 @@ $data = DB::connection('con1')
 ```php
 // SELECT * FROM user ORDER BY sort_num DESC, id ASC;
 $data = DB::connection('con1')
-		->table('user')
-        ->orderBy('sort_num', 'DESC')
-        ->orderBy('id', 'ASC')
-        ->get();
+    ->table('user')
+    ->orderBy('sort_num', 'DESC')
+    ->orderBy('id', 'ASC')
+    ->get();
 ```
 
 ## limit
@@ -343,9 +343,9 @@ $data = DB::connection('con1')
 ```php
 // SELECT * FROM user LIMIT 10 OFFSET 3
 $data = DB::connection('con1')
-		->table('user')
-        ->limit(3, 10)
-        ->get();
+    ->table('user')
+    ->limit(3, 10)
+    ->get();
 ```
 
 ## 分页
@@ -356,8 +356,8 @@ $data = DB::connection('con1')
 
 ```php
 $data = DB::connection('con1')
-		->table('user')
-        ->paginate(10, 2);  // 每页 10 条数据，当前第 2 页
+    ->table('user')
+    ->paginate(10, 2);  // 每页 10 条数据，当前第 2 页
 ```
 
 paginate 方法返回结果：
@@ -387,17 +387,17 @@ paginate 方法返回结果：
 ```php
 // SELECT * FROM user INNER JOIN user_group ON user.g_id = user_group.id;
 $data = DB::connection('con1')
-		->table('user')
-        ->join('user_group', 'user.g_id', 'user_group.id')
-        ->get();
+    ->table('user')
+    ->join('user_group', 'user.g_id', 'user_group.id')
+    ->get();
         
         
 // SELECT user.username, user_group.groupname FROM user LEFT JOIN user_group ON user.g_id = user_group.id;
 $data = DB::connection('con1')
-		->table('user')
-        ->select('user.username', 'user_group.groupname')
-        ->leftJoin('user_group', 'user.g_id', 'user_group.id')
-        ->get();
+    ->table('user')
+    ->select('user.username', 'user_group.groupname')
+    ->leftJoin('user_group', 'user.g_id', 'user_group.id')
+    ->get();
 ```
 
 ## 构造复杂的语句
@@ -410,16 +410,16 @@ $data = DB::connection('con1')
 // WHERE username = 'Jackie aa' 
 // OR ( NOT EXISTS ( SELECT * FROM user WHERE username = 'Jackie aa' ) AND username = 'Jackie Conroy' );
 $data = DB::connection('con1')
-		->table('user')
-        ->select('user.username', 'user_group.groupname')
-        ->leftJoin('user_group', 'user.g_id', 'user_group.id')
-        ->where('user.username', 'Jackie aa')
-        ->orWhereBrackets(function($query) {
-            $query->whereNotExists(function($query) {
-                $query->table('user')->where('username', 'Jackie aa');
-            })->where('user.username', 'Jackie Conroy');
-        })
-        ->get();
+    ->table('user')
+    ->select('user.username', 'user_group.groupname')
+    ->leftJoin('user_group', 'user.g_id', 'user_group.id')
+    ->where('user.username', 'Jackie aa')
+    ->orWhereBrackets(function($query) {
+        $query->whereNotExists(function($query) {
+            $query->table('user')->where('username', 'Jackie aa');
+        })->where('user.username', 'Jackie Conroy');
+    })
+    ->get();
 
 // SELECT user.sort_num, COUNT(*) FROM user 
 // INNER JOIN user_group ON user.g_id = user_group.id 
@@ -427,51 +427,51 @@ $data = DB::connection('con1')
 // GROUP BY user.sort_num 
 // HAVING user.sort_num = 20 OR user.sort_num = 50 ORDER BY user.sort_num DESC;
 $data = DB::connection('con1')
-		->table('user')
-        ->select('user.sort_num', 'COUNT(*)')
-        ->join('user_group', 'user.g_id', 'user_group.id')
-        ->where('user.activated', '<>', 0)
-        ->groupBy('user.sort_num')
-        ->having('user.sort_num', '50')
-        ->orHaving('user.sort_num', '20')
-        ->orderBy('user.sort_num', 'DESC')
-        ->get();
+    ->table('user')
+    ->select('user.sort_num', 'COUNT(*)')
+    ->join('user_group', 'user.g_id', 'user_group.id')
+    ->where('user.activated', '<>', 0)
+    ->groupBy('user.sort_num')
+    ->having('user.sort_num', '50')
+    ->orHaving('user.sort_num', '20')
+    ->orderBy('user.sort_num', 'DESC')
+    ->get();
 
 // SELECT user.username, user_group.groupname, company.companyname FROM company 
 // LEFT JOIN user_group ON user_group.c_id = company.id 
 // LEFT JOIN user ON user.g_id = user_group.id 
 // ORDER BY user.sort_num ASC, user.id DESC LIMIT 25 offset 10;
 $data = DB::connection('con1')
-		->table('user')
-        ->select('user.username', 'user_group.groupname', 'company.companyname')
-        ->leftJoin('user_group', 'user_group.c_id', 'company.id')
-        ->leftJoin('user', 'user.g_id', 'user_group.id')
-        ->orderBy('user.sort_num', 'ASC')
-        ->orderBy('user.id', 'DESC')
-        ->limit(10, 25)
-        ->get();
+    ->table('user')
+    ->select('user.username', 'user_group.groupname', 'company.companyname')
+    ->leftJoin('user_group', 'user_group.c_id', 'company.id')
+    ->leftJoin('user', 'user.g_id', 'user_group.id')
+    ->orderBy('user.sort_num', 'ASC')
+    ->orderBy('user.id', 'DESC')
+    ->limit(10, 25)
+    ->get();
         
 // SELECT * FROM user 
 // WHERE username = 'Jackie aa' 
 // OR ( NOT EXISTS ( SELECT * FROM user WHERE username = 'Jackie aa' ) AND (username = 'Jackie Conroy' OR username = 'Jammie Haag') ) 
 // AND g_id IN ( SELECT id FROM user_group) ORDER BY id DESC LIMIT 1 OFFSET 0 ;
 $data = DB::connection('con1')
-		->table('user')
-        ->where('username', 'Jackie aa')
-        ->orWhereBrackets(function($query) {
-            $query->whereNotExists(function($query) {
-                $query->table('user')->where('username', 'Jackie aa');
-            })->WhereBrackets(function($query) {
-                $query->where('username', 'Jackie Conroy')
-                      ->orWhere('username', 'Jammie Haag');
-            });
-        })
-        ->whereInSub('g_id', function($query) {
-            $query->table('user_group')->select('id');
-        })
-        ->orderBy('id', 'DESC')
-        ->limit(0, 1)
-        ->get();
+    ->table('user')
+    ->where('username', 'Jackie aa')
+    ->orWhereBrackets(function($query) {
+        $query->whereNotExists(function($query) {
+            $query->table('user')->where('username', 'Jackie aa');
+        })->WhereBrackets(function($query) {
+            $query->where('username', 'Jackie Conroy')
+                    ->orWhere('username', 'Jammie Haag');
+        });
+    })
+    ->whereInSub('g_id', function($query) {
+        $query->table('user_group')->select('id');
+    })
+    ->orderBy('id', 'DESC')
+    ->limit(0, 1)
+    ->get();
 ```
 
 ## DML 语句
@@ -519,9 +519,9 @@ $update_data = [
 ];
 // 默认返回受影响行数
 $effect_row = DB::connection('con1')
-		->table('user')
-        ->where('name', 'jack')
-        ->update($update_data);
+    ->table('user')
+    ->where('name', 'jack')
+    ->update($update_data);
 ```
 
 ## 删除
@@ -533,9 +533,9 @@ delete 方法。
 ```php
 // DELETE FROM user WHERE id = 1;
 $effect_row = DB::connection('con1')
-		->table('user')
-        ->where('id', 1)
-        ->delete();
+    ->table('user')
+    ->where('id', 1)
+    ->delete();
 ```
 
 ## 事务
@@ -548,9 +548,9 @@ $effect_row = DB::connection('con1')
 DB::connection('con1')->beginTrans();
 // DML 操作
 DB::connection('con1')
-		->table('user')
-        ->where('id', 1)
-        ->delete(); 
+    ->table('user')
+    ->where('id', 1)
+    ->delete(); 
 // 回滚事务
 DB::connection('con1')->rollBackTrans();
 ```
@@ -562,9 +562,9 @@ DB::connection('con1')->rollBackTrans();
 DB::connection('con1')->beginTrans();
 // DML 操作
 DB::connection('con1')
-		->table('user')
-        ->where('id', 1)
-        ->delete(); 
+    ->table('user')
+    ->where('id', 1)
+    ->delete(); 
 // 提交事务
 DB::connection('con1')->commitTrans();
 ```
