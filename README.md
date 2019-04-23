@@ -10,10 +10,10 @@ composer require wazsmwazsm/db
 ```
 ## 依赖
 
-php pdo 扩展
-php pdo_mysql 扩展（可选）
-php pdo_pgsql 扩展（可选）
-php pdo_sqlite 扩展（可选）
+- php pdo 扩展
+- php pdo_mysql 扩展（可选）
+- php pdo_pgsql 扩展（可选）
+- php pdo_sqlite 扩展（可选）
 
 # 如何开始
 ## 初始化配置
