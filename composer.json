@@ -1,0 +1,26 @@
+{
+    "name": "wazsmwazsm/db",
+    "description": "A database query builder",
+    "keywords": ["database", "db", "query builder"],
+    "license": "MIT",
+    "homepage": "https://github.com/wazsmwazsm/DB",
+    "authors": [
+      {
+        "name": "MrQin",
+        "email": "942443360@qq.com"
+      }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "phpunit/dbunit": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DB\\": "src/DB/"
+        }
+    }
+}
