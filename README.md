@@ -82,7 +82,7 @@ use DB\DB;
 
 $con = DB::connection('con1');
 
-$result = $con->get();
+$result = $con->table('test_table')->get();
 ```
 
 ## 模型
