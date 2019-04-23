@@ -138,10 +138,10 @@ row 方法用来获取一行数据。
 ```php
 // SELECT id, name, age, score FROM test WHERE id = 10;
 $row = DB::connection('con1')
-		->table('test')
-        ->select('id', 'name', 'age', 'score')
-        ->where('id', 10)
-        ->row();
+    ->table('test')
+    ->select('id', 'name', 'age', 'score')
+    ->where('id', 10)
+    ->row();
 ```
 
 ### 获取一列
