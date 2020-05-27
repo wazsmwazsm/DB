@@ -166,6 +166,8 @@ $data = DB::connection('con1')->table('test')->count(*);
 $data = DB::connection('con1')->table('test')->sum('score');
 ```
 
+> 如果要执行 count(distinct name) 此类的 SQL，请使用 countRaw() 方法
+
 ## where 子句
 
 构建 where 子句的方法有 where、orWhere。
