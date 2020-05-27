@@ -1338,7 +1338,7 @@ class PDODriver implements ConnectorInterface
      */
     public function countRaw($field = '*')
     {
-        $this->_cols_str = ' COUNT('.$field.') AS count_num ';
+        $this->_cols_str = ' COUNT( '.$field.' ) AS count_num ';
 
         return $this->row()['count_num'];
     }

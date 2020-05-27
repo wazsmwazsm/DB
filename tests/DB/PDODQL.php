@@ -64,9 +64,9 @@ class PDODQLTest extends PHPUnit_Framework_TestCase
 
     public function testCountRaw()
     {
-        $expect = self::$pdo->query('SELECT COUNT(distinct `username`) AS count_num FROM t_user ')
+        $expect = self::$pdo->query('SELECT COUNT(distinct username) AS count_num FROM t_user ')
                 ->fetch(PDO::FETCH_ASSOC)['count_num'];
-        $testResult = self::$db->table('user')->countRaw('distinct `username`');
+        $testResult = self::$db->table('user')->countRaw('distinct username');
 
         $this->assertEquals($expect, $testResult);
     }
