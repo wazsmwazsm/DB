@@ -62,6 +62,15 @@ class PDODQLTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expect, $testResult);
     }
 
+    public function testCountRaw()
+    {
+        $expect = self::$pdo->query('SELECT COUNT(distinct `username`) AS count_num FROM t_user ')
+                ->fetch(PDO::FETCH_ASSOC)['count_num'];
+        $testResult = self::$db->table('user')->countRaw('distinct `username`');
+
+        $this->assertEquals($expect, $testResult);
+    }
+
     public function testSum()
     {
         $expect = self::$pdo->query('SELECT SUM(id) AS sum_num FROM t_user ')

@@ -1330,6 +1330,20 @@ class PDODriver implements ConnectorInterface
     }
 
     /**
+     * get count with raw string
+     *
+     * @param  string $field
+     * @return  int
+     * @throws  \PDOException
+     */
+    public function countRaw($field = '*')
+    {
+        $this->_cols_str = ' COUNT('.$field.') AS count_num ';
+
+        return $this->row()['count_num'];
+    }
+
+    /**
      * get sum
      *
      * @param  string $field
